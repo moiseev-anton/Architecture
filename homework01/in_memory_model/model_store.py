@@ -9,13 +9,18 @@ from ..model_elements.scene import Scene
 
 class ModelStore(IModelChanger):
     def __init__(self, change_observers: list[IModelChangedObserver]):
-        self.change_observers = change_observers
-        self.models = [PoligonModel(textures=[])]
-        self.flashes = [Flash()]
-        self.cameras = [Camera()]
-        self.scenes = [Scene(0, self.models, self.flashes, self.cameras)]
+        self.__change_observers = change_observers
+        self.models = []
+        self.flashes = []
+        self.cameras = []
+        self.scenes = []
 
-    def get_scena(self, id) -> Scene:
+        self.models.append(PoligonModel(textures=[]))
+        self.flashes.append(Flash())
+        self.cameras.append(Camera())
+        self.scenes.append(Scene(0, self.models, self.flashes, self.cameras))
+
+    def get_scene(self, id) -> Scene:
         for scene in self.scenes:
             if scene.id == id:
                 return scene
